@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Validaciones</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/angular.min.js"></script>
+	<script src="js/bundle.js"></script>
+</head>
+<body ng-app="appVal" ng-controller="mainCtrl">
+	<div class="container">
+		<h1>Contact</h1>
+		<a class="btn_list btn_title" ng-click="goList()" title="Go to contact list"></a>
+
+		<form id="form_contact" name="form_contact" class="form-group">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="First name" name="first_name" ng-model="contact.first_name" required>
+				<p class="alert-warning" ng-show="form_contact.first_name.$error.required && form_contact.first_name.$touched">The first name is required</p>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Last name" name="last_name" ng-model="contact.last_name" required>
+				<p class="alert-warning" ng-show="form_contact.last_name.$error.required && form_contact.last_name.$touched">The last name is required</p>
+			</div>
+			<div class="form-group">
+				<input type="email" class="form-control" placeholder="Email" name="email" ng-model="contact.email" required>
+				<p class="alert-warning" ng-show="form_contact.email.$error.required && form_contact.email.$touched">The email name is required</p>
+			</div>
+			<div class="form-group">
+				<select class="form-control" name="country" ng-model="contact.country" required>
+					<option class="form-control" value="" disabled selected>Select the country</option>
+					<option class="form-control" ng-repeat="code in countries.getCodes()" value="{{code}}">{{countries.getName(code)}}</option>
+				</select>
+				<p class="alert-warning" ng-show="form_contact.country.$error.required && form_contact.country.$touched">The country name is required</p>
+			</div>
+		</form>
+
+		<div class="botton_bar">
+			<button class="btn btn-info" name="btn_add" ng-click="add()" ng-show="new && form_contact.$valid" title="Save new contact">Add</button>
+			<button class="btn btn-info" name="btn_edit" ng-click="update()" ng-show="new && form_contact.$valid" title="Update contact">Edit </button>
+			<button class="btn btn-info" name="btn_del" ng-click="delete()" ng-show="new && form_contact.$valid" title="Delete contact">Delete</button>
+		</div>
+	</div>
+<script>
+	angular.module('appVal', [])
+		.controller('mainCtrl', function($scope){
+			//validar form
+			$scope.new = true;
+			
+			$scope.add = function(){
+				alert('ok a new contact saved!');
+			}
+			$scope.update = function(){
+				alert('ok a edited contact!');
+			}
+			$scope.delete = function(){
+				alert('ok delete contact!');
+			}
+			//Funcion para llamar lista de paises
+			$scope.countries = window.countries;
+		});
+</script>
+</body>
+</html>
